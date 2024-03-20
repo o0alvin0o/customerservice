@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestResponse;
@@ -27,6 +28,14 @@ public class CustomerResource {
         return customerService.createCustomer(c)
                 .onItem().transform(customer -> RestResponse.created(URI.create("/customers/" + customer.getId())))
                 .onFailure().recoverWithItem(ex -> {
-                    LOG.info(ex.getMessage()); return RestResponse.serverError();});
+                    LOG.info(ex.getMessage()); return convertException(ex);});
+    }
+
+    private RestResponse<Object> convertException(Throwable e) {
+        if (e instanceof WebApplicationException) {
+            return RestResponse.notFound();
+        } else {
+            return RestResponse.serverError();
+        }
     }
 }
