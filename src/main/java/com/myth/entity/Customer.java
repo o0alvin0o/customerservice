@@ -29,7 +29,7 @@ public class Customer {
     private String lastName;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Address> addresses;
 
     public Long getId() {

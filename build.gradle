@@ -20,6 +20,9 @@ dependencies {
     implementation 'io.quarkus:quarkus-reactive-pg-client'
     implementation 'io.quarkus:quarkus-rest-client-reactive-jackson'
     implementation 'io.quarkus:quarkus-arc'
+
+    implementation 'net.datafaker:datafaker:2.1.0'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
 }
